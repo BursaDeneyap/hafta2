@@ -1,64 +1,87 @@
+import 'dart:io';
+
 void main() {
-  print('--- DARTPAD HESAP MAKİNESİ TÜM TESTLER ---\n');
-  
-  double sayi1 = 15.0; 
-  double sayi2 = 5.0;
+  print('=== VS CODE INTERAKTIF HESAP MAKINESI ===\n');
 
-  print('GİRİLEN SAYILAR: $sayi1 ve $sayi2\n');
-  print('-----------------------------------------');
+  double sayi1 = 0.0;
+  while (true) {
+    stdout.write('Lutfen 1. sayiyi girin: ');
+    String? girdi1 = stdin.readLineSync()?.trim(); 
+    if (girdi1 != null && girdi1.isNotEmpty) {
+      double? kontrol = double.tryParse(girdi1);
+      if (kontrol != null) {
+        sayi1 = kontrol;
+        break;
+      }
+    }
+    print('Hata: Gecersiz bir sayi girdiniz! Tekrar deneyin.');
+  }
 
-  
-  hesapMakinesi(sayi1, sayi2, '+');
-  print('-----------------------------------------');
+  String islem = '';
+  while (true) {
+    stdout.write('Yapmak istediginiz islemi girin (+, -, *, /, ?): ');
+    String? girdiIslem = stdin.readLineSync()?.trim();
+    if (girdiIslem != null && ['+', '-', '*', '/', '?'].contains(girdiIslem)) {
+      islem = girdiIslem;
+      break;
+    }
+    print('Hata: Gecersiz islem! Lutfen sadece +, -, *, / veya ? girin.');
+  }
 
-  hesapMakinesi(sayi1, sayi2, '-');
-  print('-----------------------------------------');
+  double sayi2 = 0.0;
+  while (true) {
+    stdout.write('Lutfen 2. sayiyi girin: ');
+    String? girdi2 = stdin.readLineSync()?.trim();
+    if (girdi2 != null && girdi2.isNotEmpty) {
+      double? kontrol = double.tryParse(girdi2);
+      if (kontrol != null) {
+        sayi2 = kontrol;
+        break;
+      }
+    }
+    print('Hata: Gecersiz bir sayi girdiniz! Tekrar deneyin.');
+  }
 
-  hesapMakinesi(sayi1, sayi2, '*');
-  print('-----------------------------------------');
-
-  hesapMakinesi(sayi1, sayi2, '/');
-  print('-----------------------------------------');
-
-  hesapMakinesi(sayi1, sayi2, '?');
+  print('\n-----------------------------------------');
+  hesapMakinesi(sayi1, sayi2, islem);
   print('-----------------------------------------');
 }
 
+// Hesap makinesi fonksiyonu
 void hesapMakinesi(double sayi1, double sayi2, String islem) {
   
   if (islem == '+') {
     double sonuc = sayi1 + sayi2;
-    print('İşlem: Toplama ($sayi1 + $sayi2)');
-    print('Sonuç: $sonuc');
+    print('Islem: Toplama ($sayi1 + $sayi2)');
+    print('Sonuc: $sonuc');
   }
   else if (islem == '-') {
     double sonuc = sayi1 - sayi2;
-    print('İşlem: Çıkarma ($sayi1 - $sayi2)');
-    print('Sonuç: $sonuc');
+    print('Islem: Cıkarma ($sayi1 - $sayi2)');
+    print('Sonuc: $sonuc');
   }
   else if (islem == '*') {
     double sonuc = sayi1 * sayi2;
-    print('İşlem: Çarpma ($sayi1 * $sayi2)');
-    print('Sonuç: $sonuc');
+    print('Islem: Carpma ($sayi1 * $sayi2)');
+    print('Sonuc: $sonuc');
   }
   else if (islem == '/') {
     if (sayi2 != 0) {
       double sonuc = sayi1 / sayi2;
-      print('İşlem: Bölme ($sayi1 / $sayi2)');
-      print('Sonuç: $sonuc');
+      print('Islem: Bolme ($sayi1 / $sayi2)');
+      print('Sonuc: $sonuc');
     } else {
-      print('İşlem: Bölme ($sayi1 / $sayi2)');
-      print('Hata: Bir sayı 0\'a bölünemez!');
+      print('Hata: Bir sayi 0\'a bolunemez!');
     }
   }
   else if (islem == '?') {
-    print('İşlem: Karşılaştırma');
+    print('Islem: Karsılastırma');
     if (sayi1 == sayi2) {
-      print('Durum: Sayılar birbirine eşittir.');
+      print('Durum: Sayilar birbirine esittir.');
     } else if (sayi1 > sayi2) {
-      print('Durum: Birinci sayı ($sayi1), ikinci sayıdan ($sayi2) büyüktür.');
+      print('Durum: Birinci sayi ($sayi1), ikinci sayidan ($sayi2) buyuktur.');
     } else {
-      print('Durum: İkinci sayı ($sayi2), birinci sayıdan ($sayi1) büyüktür.');
+      print('Durum: Ikinci sayi ($sayi2), birinci sayidan ($sayi1) buyuktur.');
     }
-  } 
+  }
 }
